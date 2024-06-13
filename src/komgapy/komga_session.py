@@ -28,10 +28,10 @@ class KomgaSession(Series, Books, Collection, Readlist, Library):
     #     return r
 
 
-    def get_collection_poster(self, id: str, convert_reponse_to_image: bool = True) -> PngImageFile | Response:
+    def get_collection_poster(self, id: str, convert_reponse_to_png: bool = True) -> PngImageFile | Response:
         endpoint = make_endpoint('collections', [id, 'thumbnail'])
         r = self._get_request(endpoint, {'id': id})
-        if convert_reponse_to_image:  
+        if convert_reponse_to_png:  
             return Image.open(io.BytesIO(r._content))
         else: 
              return r
