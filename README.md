@@ -197,6 +197,8 @@ session.update_series_metadata(series.id, {'status': 'ENDED'})
 
 ```
 session.update_collection_poster(collection.id, file_path)
-
 ```
 
+```
+series_list = session.series_search({'search':'reading_direction:right_to_left'}).content
+```
