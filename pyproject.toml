@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = 'komgapy'
+dynamic = ['version']
+dependencies = [
+    'requests',
+]
+requires-python = '>=3.8'
+authors = [{name = 'Lerch'}]
+description = 'Python wrapper for Komga API'
+
+

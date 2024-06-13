@@ -1,0 +1,36 @@
+from komgapy.response_classes.komga_response import KomgaResponse
+
+
+class KomgaSeriesMetadata(KomgaResponse):
+    def __init__(self, series_metadata: dict) -> None:
+        self.status = series_metadata['status']
+        self.status_lock = series_metadata['statusLock']
+        self.title = series_metadata['title']
+        self.title_lock = series_metadata['titleLock']
+        self.title_sort = series_metadata['titleSort']
+        self.title_sort_lock = series_metadata['titleSortLock']
+        self.summary = series_metadata['summary']
+        self.summary_lock = series_metadata['summaryLock']
+        self.reading_direction = series_metadata['readingDirection']
+        self.reading_direction_lock = series_metadata['readingDirectionLock']
+        self.publisher = series_metadata['publisher']
+        self.publisher_lock = series_metadata['publisherLock']
+        self.age_rating = series_metadata['ageRating']
+        self.age_rating_lock = series_metadata['ageRatingLock']
+        self.language = series_metadata['language']
+        self.language_lock = series_metadata['languageLock']
+        self.genres = series_metadata['genres']
+        self.genres_lock = series_metadata['genresLock']
+        self.tags = series_metadata['tags']
+        self.tags_lock = series_metadata['tagsLock']
+        self.total_book_count = series_metadata['totalBookCount']
+        self.total_book_count_lock = series_metadata['totalBookCountLock']
+        self.sharing_labels: list = series_metadata['sharingLabels']
+        self.sharing_labels_lock = series_metadata['sharingLabelsLock']
+        self.links = series_metadata['links']
+        self.links_lock = series_metadata['linksLock']
+        self.alternate_titles = series_metadata['alternateTitles']
+        self.alternate_titles_lock = series_metadata['alternateTitlesLock']
+        self.created = series_metadata['created']
+        self.last_modified = series_metadata['lastModified']
+
