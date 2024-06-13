@@ -77,8 +77,8 @@ def convert_response_to_object(response: Response) -> (
         except json.decoder.JSONDecodeError:
             return response
 
-        if type(response_json) is list and response_json != []:
-            if type(response_json[0]) is dict:
+        if type(response_json) is list:
+            if response_json != [] and type(response_json[0]) is dict:
                 if 'root' in response_json[0].keys():
                     library_list = []
                     for library in response_json:
