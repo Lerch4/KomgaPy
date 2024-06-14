@@ -35,3 +35,10 @@ class Books(Generic):
         Returns all books in a readlist given the readlist id
         '''
         return self._item_in_container('books', 'readlists', readlist_id, search_params)
+
+    def get_book_poster(self, book_id: str, convert_to_png: bool = True):
+        '''
+        Returns book thumbnail poster as a png image file. 
+        Can get raw response by setting convert_to_png = false.
+        '''
+        return self._get_item_poster('books', book_id, convert_to_png)

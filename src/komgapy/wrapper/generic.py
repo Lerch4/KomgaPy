@@ -10,6 +10,10 @@ from komgapy.convert_response_util import convert_item_list_to_objects
 from komgapy.response_classes import KomgaSeries, KomgaBook, KomgaCollection, KomgaReadlist, KomgaErrorResponse, KomgaSearchResponse
 from komgapy.wrapper import RequestAdapter
 
+from PIL import Image
+from PIL.PngImagePlugin import PngImageFile
+import io
+from requests import Response
 
 class Generic(RequestAdapter):
 
@@ -181,3 +185,10 @@ class Generic(RequestAdapter):
         r = self._patch_request(endpoint, data, headers={'Content-Type': 'application/json'})
         return r
 
+    def _get_item_poster(self, item_type: str, item_id: str, convert_to_png: bool = True) -> PngImageFile | Response:
+        endpoint = make_endpoint(item_type, [item_id, 'thumbnail'])
+        r = self._get_request(endpoint, {'id': item_id})
+        if convert_to_png and not isinstance(r, KomgaErrorResponse):  
+            return Image.open(io.BytesIO(r._content))
+        else: 
+             return r

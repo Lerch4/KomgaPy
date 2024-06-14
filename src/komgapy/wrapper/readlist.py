@@ -31,3 +31,9 @@ class Readlist(Generic):
         return self._item_in_container('readlists', 'books', book_id, search_params )
 
 
+    def get_readlist_poster(self, readlist_id: str, convert_to_png: bool = True):
+        '''
+        Returns readlist thumbnail poster as a png image file. 
+        Can get raw response by setting convert_to_png = false.
+        '''    
+        return self._get_item_poster('readlists', readlist_id, convert_to_png)

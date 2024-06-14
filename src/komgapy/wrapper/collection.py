@@ -33,3 +33,9 @@ class Collection(Generic):
     def update_existing_collection(self, data, collection = None, collection_id=None, collection_name = None, overwrite = False):
         return self._update_existing_item('collections', data=data, item = collection, item_id = collection_id, item_name = collection_name, overwrite=overwrite)
     
+    def get_collection_poster(self, collection_id: str, convert_to_png: bool = True):
+        '''
+        Returns collection thumbnail poster as a png image file. 
+        Can get raw response by setting convert_to_png = false.
+        '''
+        return self._get_item_poster('collections', collection_id, convert_to_png)

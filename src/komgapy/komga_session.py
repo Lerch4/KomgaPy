@@ -1,9 +1,7 @@
 from komgapy.wrapper import Series, Books, Collection, Readlist, Library
 from komgapy.util import make_endpoint
-from PIL import Image
-from PIL.PngImagePlugin import PngImageFile
-import io
-from requests import Response
+
+
 
 class KomgaSession(Series, Books, Collection, Readlist, Library):
     '''
@@ -28,13 +26,6 @@ class KomgaSession(Series, Books, Collection, Readlist, Library):
     #     return r
 
 
-    def get_collection_poster(self, id: str, convert_reponse_to_png: bool = True) -> PngImageFile | Response:
-        endpoint = make_endpoint('collections', [id, 'thumbnail'])
-        r = self._get_request(endpoint, {'id': id})
-        if convert_reponse_to_png:  
-            return Image.open(io.BytesIO(r._content))
-        else: 
-             return r
 
     # def get_posters_in_collection(self, id) : # list[KomgaThumbnail]
     #     '''
@@ -44,3 +35,10 @@ class KomgaSession(Series, Books, Collection, Readlist, Library):
 
 
 
+    # def _get_item_poster(self, item_type: str, item_id: str, convert_to_png: bool = True) -> PngImageFile | Response:
+    #     endpoint = make_endpoint(item_type, [item_id, 'thumbnail'])
+    #     r = self._get_request(endpoint, {'id': item_id})
+    #     if convert_to_png and not isinstance(r, KomgaErrorResponse):  
+    #         return Image.open(io.BytesIO(r._content))
+    #     else: 
+    #          return r

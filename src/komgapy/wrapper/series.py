@@ -30,4 +30,9 @@ class Series(Generic):
         return self._update_item_metadata('series', series_id, data)
 
 
-
+    def get_series_poster(self, series_id: str, convert_to_png: bool = True):
+        '''
+        Returns series thumbnail poster as a png image file. 
+        Can get raw response by setting convert_to_png = false.
+        '''    
+        return self._get_item_poster('series', series_id, convert_to_png)
