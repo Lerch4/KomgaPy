@@ -1,29 +1,30 @@
 from komgapy.util import make_endpoint
 
-
-def list_referential(self, reference: str, second_reference: str = None, search_params: dict = None)-> list[str]:
-        '''
-        From referential api controller.
-        Lists all of a reference.
-        :param reference: Type of data to list (see below for list of options)
-        :param second_reference: Optional secondary reference for specific primary references. 
+class Referential:
         
-        Primary refereces:
-            age-rating, 
-            authors,
-            genres,
-            languages,
-            publishers,
-            sharing-labels,
-            tags,
-            series(only with release-dates as second)
+    def list_referential(self, reference: str, second_reference: str = None, search_params: dict = None)-> list[str]:
+            '''
+            From referential api controller.
+            Lists all of a reference.
+            :param reference: Type of data to list (see below for list of options)
+            :param second_reference: Optional secondary reference for specific primary references. 
+            
+            Primary refereces:
+                age-rating, 
+                authors,
+                genres,
+                languages,
+                publishers,
+                sharing-labels,
+                tags,
+                series(only with release-dates as second)
 
-        Secondary references:
-            tags: books, series
-            series: release-dates
-            authors: roles, names
+            Secondary references:
+                tags: books, series
+                series: release-dates
+                authors: roles, names
 
-        '''
+            '''
 
-        endpoint = make_endpoint(reference, second_reference)
-        return self._get_request(endpoint, search_params)
+            endpoint = make_endpoint(reference, second_reference)
+            return self._get_request(endpoint, search_params)

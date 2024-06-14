@@ -1,9 +1,9 @@
-from komgapy.wrapper import Series, Books, Collection, Readlist, Library
+from komgapy.wrapper import Series, Books, Collection, Readlist, Library, Referential
 from komgapy.util import make_endpoint
 
 
 
-class KomgaSession(Series, Books, Collection, Readlist, Library):
+class KomgaSession(Series, Books, Collection, Readlist, Library, Referential):
     '''
     Wrapper session class for Komga API requests.
 
