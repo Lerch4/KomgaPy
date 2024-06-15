@@ -220,8 +220,6 @@ class Generic(RequestAdapter):
         '''
         endpoint = make_endpoint(item_type, [item_id, 'thumbnail'])
         r = self._get_request(endpoint, {'id': item_id}, headers={'accept': 'image/jpeg'})
-        for i in vars(r):
-            print(i)
         if convert_to_png and not isinstance(r, KomgaErrorResponse):  
             return Image.open(io.BytesIO(r._content))
         else: 
