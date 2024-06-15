@@ -6,7 +6,13 @@ from requests import Response
 from komgapy.response_classes import  KomgaSeries, KomgaBook, KomgaCollection, KomgaReadlist, KomgaLibrary, KomgaErrorResponse, KomgaSearchResponse
 from komgapy.convert_response_util import convert_response_to_komga_item
 
-def make_endpoint(item_type: str,  endpoint_params: list|str = None, version: str = "v1") -> str:
+def make_endpoint(item_type: str,  endpoint_params: list[str]|str = None, version: str = "v1") -> str:
+    '''
+    Returns an API endpoint
+    :param item_type: The API controller used. Includes books, series, collections, readlists, libraries
+    :param endpoint_params: Additional parameters added on to item_type. Multiple endpoint params can be added as a list
+    :param version: API version to use in endpoint
+    '''
 
     endpoint = f'/api/{version}/{item_type.lower()}' 
 
@@ -22,7 +28,10 @@ def make_endpoint(item_type: str,  endpoint_params: list|str = None, version: st
     return endpoint
 
 
-def make_param_key(item_type: str):
+def make_param_key(item_type: str) -> str:
+    '''
+    Returns the correct type of id parameter key based on the item type
+    '''
     if item_type in ['collections', 'readlists']:
         param_key = 'id'
     elif item_type == 'series':
@@ -34,12 +43,19 @@ def make_param_key(item_type: str):
 
 
 def set_search_params(search_params: dict, default):
+    '''
+    If search parameters doesnt exist set to default.
+    '''
     if search_params == None:
         search_params = default
     return search_params
 
 
-def validate_item_type(item_type):
+def validate_item_type(item_type: str) -> str:
+    '''
+    Validates that item type is one of books, series, collections, readlists, libraries
+    Will accept book, collection, readlist and make them plural
+    '''
     if item_type[-1] != 's': item_type += 's'
     
     if item_type not in ['books', 'series', 'collections', 'readlists', 'libraries']:
@@ -48,7 +64,10 @@ def validate_item_type(item_type):
     return item_type
 
 
-def remove_duplicates(data: list):
+def remove_duplicates(data: list) -> list:
+    '''
+    Takes a list and returns that list with no duplicates
+    '''
     data_no_dups = []
     for item in data:
         if item not in data_no_dups:
@@ -66,6 +85,9 @@ def convert_response_to_object(response: Response) -> (
         KomgaCollection |
         KomgaReadlist
         ):
+    '''
+    Converts an api Response object to Komga object
+    '''
 
     if response.text:
 
