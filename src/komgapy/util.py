@@ -106,7 +106,7 @@ def convert_response_to_object(response: Response) -> (
                     return library_list
             return response_json
 
-        if 'message' in response_json.keys():
+        elif 'message' in response_json.keys():
             return KomgaErrorResponse(response_json)
         
         elif 'content' in response_json.keys():
