@@ -1,4 +1,9 @@
-import os, json
+import os, json, io
+
+from PIL import Image
+from PIL.PngImagePlugin import PngImageFile
+from requests import Response
+
 from komgapy.util import (
     validate_item_type,
     make_endpoint,
@@ -6,14 +11,17 @@ from komgapy.util import (
     remove_duplicates,
     set_search_params,
 )
-from komgapy.convert_response_util import convert_item_list_to_objects
-from komgapy.response_classes import KomgaSeries, KomgaBook, KomgaCollection, KomgaReadlist, KomgaErrorResponse, KomgaSearchResponse
 from komgapy.wrapper import RequestAdapter
+from komgapy.convert_response_util import convert_item_list_to_objects
+from komgapy.response_classes import (
+    KomgaSeries,
+    KomgaBook,
+    KomgaCollection,
+    KomgaReadlist,
+    KomgaErrorResponse,
+    KomgaSearchResponse
+    )
 
-from PIL import Image
-from PIL.PngImagePlugin import PngImageFile
-import io
-from requests import Response
 
 class Generic(RequestAdapter):
 
@@ -94,7 +102,7 @@ class Generic(RequestAdapter):
         # return convert_item_list_to_objects(search_list)
 
     def _update_existing_item(self, item_type, data, item = None, item_id = None, item_name = None, overwrite = False):
-        
+
         if item == None:
 
             if item_id != None:
@@ -140,7 +148,10 @@ class Generic(RequestAdapter):
         return item
     
 
-    def _overwrite_existing_item(self, item_type, item_id, data):
+    def _overwrite_existing_item(self, item_type: str, item_id: str, data):
+            '''
+            Replaces current data with new data for collections or readlists
+            '''
             r = self._patch_request(make_endpoint(item_type, [item_id]), json.dumps(data))
 
             return r
@@ -165,7 +176,12 @@ class Generic(RequestAdapter):
             return r
     
 
-    def _item_in_container(self, item_type, container__type, container_id, search_params = None) -> list | KomgaErrorResponse:
+    def _item_in_container(self, item_type: str, container__type: str, container_id: str, search_params: dict = None) -> list | KomgaErrorResponse:
+           '''
+           Returns a item from another api controller
+
+           :param search_params: different for each item, see docs for more info
+           '''
 
            endpoint = make_endpoint(container__type, endpoint_params = [container_id, item_type])
            search_params = set_search_params(search_params, make_param_key(container__type))
@@ -174,11 +190,22 @@ class Generic(RequestAdapter):
            return convert_item_list_to_objects(item_list)
     
 
-    def _add_new_user_generated_item(self,item_type, data):
+    def _add_new_user_generated_item(self,item_type: str, data: dict):
+        '''
+        Post new item
+
+        :param item_type: collections or readlists
+        :param data: see docs for data keys
+        '''
         return self._post_request(make_endpoint(item_type), json.dumps(data) )
     
 
-    def _update_item_metadata(self, item_type, item_id, data: dict):
+    def _update_item_metadata(self, item_type: str, item_id: str, data: dict):
+        '''
+        Updates metadata for series or book
+
+        :param data: see docs for data keys
+        '''
         
         data = json.dumps(data)
         endpoint = make_endpoint(item_type, [item_id, 'metadata'])
@@ -186,6 +213,11 @@ class Generic(RequestAdapter):
         return r
 
     def _get_item_poster(self, item_type: str, item_id: str, convert_to_png: bool = True) -> PngImageFile | Response:
+        '''
+        Returns png image for an item thumbnail
+
+        :param convert_to_png: False returns raw response
+        '''
         endpoint = make_endpoint(item_type, [item_id, 'thumbnail'])
         r = self._get_request(endpoint, {'id': item_id}, headers={'accept': 'image/jpeg'})
         for i in vars(r):
