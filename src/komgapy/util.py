@@ -10,7 +10,6 @@ def make_endpoint(item_type: str,  endpoint_params: list|str = None, version: st
 
     endpoint = f'/api/{version}/{item_type.lower()}' 
 
-
     if endpoint_params!= None:
         endpoint += '/'
 
@@ -19,7 +18,6 @@ def make_endpoint(item_type: str,  endpoint_params: list|str = None, version: st
 
         elif type(endpoint_params) == str:
             endpoint += endpoint_params
-    
     
     return endpoint
 
