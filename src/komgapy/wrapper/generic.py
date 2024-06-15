@@ -28,9 +28,9 @@ class Generic(RequestAdapter):
         Can use either id or name of item with id being prefered.
         Using name will search for that name and return first result.
 
-        :param item_type: include series, book(s), collection(s), readlist(s), libraries.
-        :param item_id: komga id for item.
-        :param item_name: name to search for.
+        :param item_type: Include series, book(s), collection(s), readlist(s), libraries.
+        :param item_id: Komga id for item.
+        :param item_name: Exact name to search for.
         
         '''
 

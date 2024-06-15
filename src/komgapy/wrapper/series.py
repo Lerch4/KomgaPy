@@ -4,17 +4,31 @@ from komgapy.wrapper import Generic
 
 class Series(Generic):
 
-    def get_series(self, series_id = None, series_name = None) -> KomgaSeries | KomgaErrorResponse:
+    def get_series(self, series_id: str = None, series_name: str = None) -> KomgaSeries | KomgaErrorResponse:
+        '''
+        Returns Komga object for a single Komga item.
+        Can use either id or name of item with id being prefered.
+        Using name will search for that name and return first result.
+
+        :param series_id: Komga series id
+        :param item_name: Exact name to search for.
+        
+        '''
         return self._get_item('series', series_id, series_name)
 
 
-    def search_series(self, search_params):
+    def search_series(self, search_params) -> KomgaSearchResponse | KomgaErrorResponse:
+        '''
+        Kombga general search.
+        :param search_params: dictionary of paramiters available for series. See documentation for options.       
+        '''
         return self._search('series', search_params)
 
 
     def update_series_poster(self, series_id, file_path):
         '''
-        Untested
+        Updates the poster thumbnail for a series given the series id.
+        Untested.
         '''
         return self._update_item_poster('series', series_id, file_path)
 
@@ -26,13 +40,20 @@ class Series(Generic):
         return self._item_in_container('series', 'collections', collection_id, search_params)
 
 
-    def update_series_metadata(self, series_id, data: dict):
+    def update_series_metadata(self, series_id: str, data: dict):
+        '''
+        Updates metadata for a series.
+
+        :param sereis_id: Komga series id
+        :param data: Data to be updated. See docs for keys.
+        '''
         return self._update_item_metadata('series', series_id, data)
 
 
     def get_series_poster(self, series_id: str, convert_to_png: bool = True):
         '''
         Returns series thumbnail poster as a png image file. 
-        Can get raw response by setting convert_to_png = false.
-        '''    
+
+        :param convert_to_png: Can get raw response by setting convert_to_png = false.
+        '''
         return self._get_item_poster('series', series_id, convert_to_png)
