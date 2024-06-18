@@ -19,9 +19,11 @@ class KomgaSession(Series, Books, Collection, Readlist, Library, Referential):
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     # work in progress
 
-    # def make_readlist_from_cbl(self, path):
+    # def make_readlist_from_cbl(self, file: str):
     #     endpoint = '/api/v1/readlists/match/comicrack'
-    #     data = {'file': path}
+    #     # test = open(path)
+    #     data = {'file': file}
+    #     print(data)
     #     r = self._post_request(endpoint, data=data, headers={'accept': 'application/json'})
     #     return r
 
