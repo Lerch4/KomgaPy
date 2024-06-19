@@ -37,3 +37,16 @@ class Readlist(Generic):
         Can get raw response by setting convert_to_png = false.
         '''    
         return self._get_item_poster('readlists', readlist_id, convert_to_png)
+    
+
+    def get_readlist_files(self, readlist_id, convert_to_zip: bool = True):
+        return self._get_file(self, readlist_id, convert_to_zip)
+
+
+    def save_readlist_files(self, readlist_id, path):
+        '''
+        Saves the readlist to path
+
+        :param path: path to save location including name and extention
+        '''
+        self._save_file('readlists', readlist_id, path)

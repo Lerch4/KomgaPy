@@ -1,4 +1,4 @@
-import os, json, io
+import os, json, io, zipfile
 
 from PIL import Image
 from PIL.PngImagePlugin import PngImageFile
@@ -100,6 +100,7 @@ class Generic(RequestAdapter):
     
         return (search_list)
         # return convert_item_list_to_objects(search_list)
+
 
     def _update_existing_item(self, item_type, data, item = None, item_id = None, item_name = None, overwrite = False):
 
@@ -212,6 +213,7 @@ class Generic(RequestAdapter):
         r = self._patch_request(endpoint, data, headers={'Content-Type': 'application/json'})
         return r
 
+
     def _get_item_poster(self, item_type: str, item_id: str, convert_to_png: bool = True) -> PngImageFile | Response:
         '''
         Returns png image for an item thumbnail
@@ -224,3 +226,22 @@ class Generic(RequestAdapter):
             return Image.open(io.BytesIO(r._content))
         else: 
              return r
+
+
+    def _get_file(self, item_type, item_id, convert_to_zip: bool = True):
+        endpoint = make_endpoint(item_type, [item_id, 'file'])
+        r = self._get_request(endpoint, {make_param_key(item_type): item_id})
+        if convert_to_zip:
+            return zipfile.ZipFile(io.BytesIO(r._content), 'r')
+        else:
+            return r
+        
+
+    def _save_file(self, item_type, item_id, path):
+        endpoint = make_endpoint(item_type, [item_id, 'file'])
+        r = self._get_request(endpoint, {make_param_key(item_type): item_id})
+
+        file = zipfile.ZipFile(io.BytesIO(r._content), 'r')
+
+        with open(path, 'wb') as file:
+            file.write(r._content)

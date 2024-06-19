@@ -39,3 +39,4 @@ class Collection(Generic):
         Can get raw response by setting convert_to_png = false.
         '''
         return self._get_item_poster('collections', collection_id, convert_to_png)
+    

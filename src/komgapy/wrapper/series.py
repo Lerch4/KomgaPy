@@ -57,3 +57,15 @@ class Series(Generic):
         :param convert_to_png: Can get raw response by setting convert_to_png = false.
         '''
         return self._get_item_poster('series', series_id, convert_to_png)
+
+
+    def get_series_file(self, series_id, convert_to_zip: bool = True):
+        return self._get_file(series_id, convert_to_zip)
+
+    def save_series_files(self, series_id, path):
+        '''
+        Saves the series to path
+
+        :param path: path to save location including name and extention
+        '''
+        self._save_file('series', series_id, path)

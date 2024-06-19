@@ -1,6 +1,5 @@
 from komgapy.wrapper import Series, Books, Collection, Readlist, Library, Referential
-from komgapy.util import make_endpoint
-
+from komgapy.util import make_endpoint, make_param_key
 
 
 class KomgaSession(Series, Books, Collection, Readlist, Library, Referential):
@@ -44,3 +43,18 @@ class KomgaSession(Series, Books, Collection, Readlist, Library, Referential):
     #         return Image.open(io.BytesIO(r._content))
     #     else: 
     #          return r
+
+    # def _get_file(self, item_type, item_id, convert_to_cbz: bool = False):
+    #     endpoint = make_endpoint(item_type, [item_id, 'file'])
+    #     r = self._get_request(endpoint, {make_param_key(item_type): item_id})
+    #     if convert_to_cbz:
+    #         return 
+    #     else:
+    #         return r
+        
+    # def _save_file(self, item_type, item_id, path):
+    #     endpoint = make_endpoint(item_type, [item_id, 'file'])
+    #     r = self._get_request(endpoint, {make_param_key(item_type): item_id})
+
+    #     with open(path, 'wb') as file:
+    #         file.write(r._content)

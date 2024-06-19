@@ -42,3 +42,16 @@ class Books(Generic):
         Can get raw response by setting convert_to_png = false.
         '''
         return self._get_item_poster('books', book_id, convert_to_png)
+    
+    
+    def get_book_files(self, book_id, convert_to_zip: bool = True):
+        return self._get_file('books', book_id, convert_to_zip)
+
+
+    def save_book_file(self, book_id, path) -> None:
+        '''
+        Saves book to path
+
+        :param path: path to save location including name and extention
+        '''
+        self._save_file('books', book_id, path)
