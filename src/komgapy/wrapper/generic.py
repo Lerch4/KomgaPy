@@ -214,34 +214,40 @@ class Generic(RequestAdapter):
         return r
 
 
-    def _get_item_poster(self, item_type: str, item_id: str, convert_to_png: bool = True) -> PngImageFile | Response:
+    def _get_item_poster(self, item_type: str, item_id: str, convert_to_png: bool = True) -> PngImageFile | io.BytesIO | KomgaErrorResponse:
         '''
         Returns png image for an item thumbnail
 
-        :param convert_to_png: False returns raw response
+        :param convert_to_png: False returns raw bytes
         '''
         endpoint = make_endpoint(item_type, [item_id, 'thumbnail'])
         r = self._get_request(endpoint, {'id': item_id}, headers={'accept': 'image/jpeg'})
-        if convert_to_png and not isinstance(r, KomgaErrorResponse):  
+
+        # with open('test.png', 'wb') as image:
+        #     image.write(r._content)
+        if  isinstance(r, KomgaErrorResponse):
+            return r
+        elif convert_to_png:  
             return Image.open(io.BytesIO(r._content))
         else: 
-             return r
+             return io.BytesIO(r._content)
 
 
-    def _get_file(self, item_type, item_id, convert_to_zip: bool = True):
+    def _get_file(self, item_type, item_id, convert_to_zip: bool = True) -> zipfile.ZipFile | io.BytesIO | KomgaErrorResponse:
         endpoint = make_endpoint(item_type, [item_id, 'file'])
         r = self._get_request(endpoint, {make_param_key(item_type): item_id})
-        if convert_to_zip:
-            return zipfile.ZipFile(io.BytesIO(r._content), 'r')
-        else:
+        if isinstance(r, KomgaErrorResponse):
             return r
         
+        elif convert_to_zip:
+            return zipfile.ZipFile(io.BytesIO(r._content), 'r')
+        else:
+            return r._contnet
+        
 
-    def _save_file(self, item_type, item_id, path):
+    def _save_file(self, item_type, item_id, path) -> None:
         endpoint = make_endpoint(item_type, [item_id, 'file'])
         r = self._get_request(endpoint, {make_param_key(item_type): item_id})
-
-        file = zipfile.ZipFile(io.BytesIO(r._content), 'r')
 
         with open(path, 'wb') as file:
             file.write(r._content)
