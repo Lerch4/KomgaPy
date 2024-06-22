@@ -4,6 +4,7 @@ from PIL import Image
 from PIL.PngImagePlugin import PngImageFile
 from requests import Response
 
+from komgapy.exception_classes import NoSearchResults
 from komgapy.util import (
     validate_item_type,
     make_endpoint,
@@ -75,7 +76,7 @@ class Generic(RequestAdapter):
 
 
         if item == []:
-            raise Exception('Search for name returns zero results')
+            raise NoSearchResults('Search for name returns zero results')
 
         if type(item) is list:
             for content in item:
