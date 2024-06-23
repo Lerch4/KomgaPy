@@ -13,6 +13,10 @@ from komgapy.response_classes import (
 
 
 class RequestAdapter:
+    '''
+    Handles GET, POST, PATCH requests and converts output.
+    Parent class to generic class and therfore all wrapper classes.
+    '''
     def __init__(self, komga_url: str, auth: tuple[str,str]) -> None: 
         self.host_url = komga_url
         self.auth = auth
@@ -37,7 +41,7 @@ class RequestAdapter:
                 KomgaLibrary
                 ):
         '''
-        Gets a response from an api request and returns object
+        Gets a response from an api request and returns object.
         '''
 
         full_url = self.host_url + endpoint

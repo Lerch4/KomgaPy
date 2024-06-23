@@ -2,12 +2,18 @@ from komgapy.util import make_endpoint
 
 class Referential:
         
-    def list_referential(self, reference: str, second_reference: str = None, search_params: dict = None)-> list[str]:
+    def list_referential(
+                self,
+                reference: str,
+                second_reference: str = None,
+                search_params: dict = None
+                )-> list[str]:
             '''
             From referential api controller.
             Lists all of a reference.
             :param reference: Type of data to list (see below for list of options)
             :param second_reference: Optional secondary reference for specific primary references. 
+            :param: search_params: Additional parameters to narrow down results(see docs for keys).
             
             Primary refereces:
                 age-rating, 

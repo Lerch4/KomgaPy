@@ -6,26 +6,26 @@ class Series(Generic):
 
     def get_series(self, series_id: str = None, series_name: str = None) -> KomgaSeries | KomgaErrorResponse:
         '''
-        Returns Komga object for a single Komga item.
-        Can use either id or name of item with id being prefered.
+        Returns Komga Series Object for a single Series.
+        Can use either id or name  with id being prefered.
         Using name will search for that name and return first result.
 
         :param series_id: Komga series id
-        :param item_name: Exact name to search for.
+        :param series_name: Exact name to search for.
         
         '''
         return self._get_item('series', series_id, series_name)
 
 
-    def search_series(self, search_params) -> KomgaSearchResponse | KomgaErrorResponse:
+    def search_series(self, search_params: dict) -> KomgaSearchResponse | KomgaErrorResponse:
         '''
-        Kombga general search.
+        Komga general search.
         :param search_params: dictionary of paramiters available for series. See documentation for options.       
         '''
         return self._search('series', search_params)
 
 
-    def update_series_poster(self, series_id, file_path):
+    def update_series_poster(self, series_id: str, file_path: str):
         '''
         Updates the poster thumbnail for a series given the series id.
         Untested.
@@ -33,7 +33,11 @@ class Series(Generic):
         return self._update_item_poster('series', series_id, file_path)
 
 
-    def series_in_collection(self, collection_id, search_params = None) -> list[KomgaSeries] | KomgaErrorResponse:
+    def series_in_collection(
+            self,
+            collection_id: str,
+            search_params: dict = None
+            ) -> list[KomgaSeries] | KomgaErrorResponse:
         '''
         Returns all series in a collection given the collection id
         '''
@@ -59,10 +63,15 @@ class Series(Generic):
         return self._get_item_poster('series', series_id, convert_to_png)
 
 
-    def get_series_file(self, series_id, convert_to_zip: bool = True):
+    def get_series_files(self, series_id: str, convert_to_zip: bool = True):
+        '''
+        Returns series files as a zip file or Bytes object. 
+
+        :param convert_to_zip: True returns a zip file, False returns Bytes object 
+        '''
         return self._get_file(series_id, convert_to_zip)
 
-    def save_series_files(self, series_id, path):
+    def save_series_files(self, series_id: str, path: str):
         '''
         Saves the series to path
 

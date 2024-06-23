@@ -4,46 +4,94 @@ from komgapy.wrapper import Generic
 
 class Readlist(Generic):
 
-    def get_readlist(self, readlist_id = None, readlist_name = None) -> KomgaReadlist | KomgaErrorResponse:
+    def get_readlist(self, readlist_id: str = None, readlist_name: str = None) -> KomgaReadlist | KomgaErrorResponse:
+        '''
+        Returns a single Komga readlist object.
+        Takes a readlist id or name with id being prefered.
+        '''
         return self._get_item('readlists', readlist_id, readlist_name)
     
 
-    def search_readlists(self, search_params):
+    def search_readlists(self, search_params: dict):
+        '''
+        Komga Search
+        :param search_params: dictionary of paramiters available for readlists. See documentation for options.
+        '''
         return self._search('readlists', search_params)
 
 
-    def update_readlist_poster(self, readlist_id, file_path):
+    def update_readlist_poster(self, readlist_id: str, file_path: str):
         '''
         Add poster art to readlist and make active
         '''
         return self._update_item_poster('readlists', readlist_id, file_path)    
 
     
-    def add_new_readlist(self, data):
+    def add_new_readlist(self, data: dict):
+        '''
+        Add new readlist from data
+
+        :param data: See docs for keys
+        '''
         return self._add_new_user_generated_item('readlists', data)
     
 
-    def update_existing_readlist(self, data, readlist = None, readlist_id=None, readlist_name = None, overwrite = False):
-        return self._update_existing_item('readlists', data=data, item = readlist, item_id = readlist_id, item_name = readlist_name, overwrite=overwrite)
+    def update_existing_readlist(
+            self,
+            data: dict,
+            readlist: KomgaReadlist = None,
+            readlist_id: str = None,
+            readlist_name: str = None,
+            overwrite: bool = False
+            ):
+        '''
+        Update existing readlist.
+        Takes either readlist object, name, or id with readlist object being prefered.
+
+        :param data: New data to be added, see docs for keys.
+        :param readlist: Komga object to be updated(prefred)
+        :param readlist_id: Komga id for readlist
+        :param readlist_name: Exact name of realist
+        :param overwrite: True replaces old data with new data, False appends new data to old data.
+        '''
+        return self._update_existing_item(
+            'readlists',
+            data = data,
+            item = readlist,
+            item_id = readlist_id,
+            item_name = readlist_name,
+            overwrite = overwrite
+            )
     
 
-    def readlist_in_books(self, book_id, search_params=None):
+    def readlist_in_books(self, book_id: str, search_params: dict = None):
+        '''
+        Returns all readlists that a book is in given the book id.
+
+        :param search_params: additional parameters to narrow down results(see docs for keys)
+        '''
         return self._item_in_container('readlists', 'books', book_id, search_params )
 
 
     def get_readlist_poster(self, readlist_id: str, convert_to_png: bool = True):
         '''
         Returns readlist thumbnail poster as a png image file. 
-        Can get raw response by setting convert_to_png = false.
+
+        :param convert_to_png: True returns a png file, False returns Bytes object 
         '''    
         return self._get_item_poster('readlists', readlist_id, convert_to_png)
     
 
-    def get_readlist_files(self, readlist_id, convert_to_zip: bool = True):
+    def get_readlist_files(self, readlist_id: str, convert_to_zip: bool = True):
+        '''
+        Returns readlist files as a zip(cbz) file or Bytes object. 
+
+        :param convert_to_zip: True returns a zip file, False returns Bytes object 
+        '''
         return self._get_file(self, readlist_id, convert_to_zip)
 
 
-    def save_readlist_files(self, readlist_id, path):
+    def save_readlist_files(self, readlist_id: str, path: str):
         '''
         Saves the readlist to path
 

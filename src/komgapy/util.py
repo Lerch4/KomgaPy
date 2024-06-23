@@ -99,20 +99,20 @@ def convert_response_to_object(response: Response) -> (
 
         if type(response_json) is list:
             if response_json != [] and type(response_json[0]) is dict:
-                if 'root' in response_json[0].keys():
+                if 'root' in response_json[0]:
                     library_list = []
                     for library in response_json:
                         library_list.append(KomgaLibrary(library))
                     return library_list
             return response_json
 
-        elif 'message' in response_json.keys():
+        elif 'message' in response_json:
             return KomgaErrorResponse(response_json)
         
-        elif 'content' in response_json.keys():
+        elif 'content' in response_json:
             return KomgaSearchResponse(response_json)
         
-        elif 'id' in response_json.keys():
+        elif 'id' in response_json:
             return convert_response_to_komga_item(response_json)
         
  
