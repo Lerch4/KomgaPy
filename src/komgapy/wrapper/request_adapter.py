@@ -1,6 +1,6 @@
 import json
 from requests import Response, request
-from komgapy.util import convert_response_to_object
+from komgapy.util.covert_response_to_object import convert_response_to_object
 from komgapy.response_classes import (
     KomgaErrorResponse,
     KomgaSearchResponse,

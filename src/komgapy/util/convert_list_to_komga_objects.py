@@ -1,21 +1,7 @@
 from komgapy.response_classes import  KomgaSeries, KomgaBook, KomgaCollection, KomgaReadlist, KomgaLibrary
+from komgapy.util.convert_data_to_komga_object import convert_response_to_komga_object
 
 
-def convert_response_to_komga_item(data):
-    if 'number' in data:
-        return KomgaBook(data)
-    
-    elif 'booksCount' in data:
-        return KomgaSeries(data)
-    
-    elif 'seriesIds' in data:
-        return KomgaCollection(data)
-    
-    elif 'bookIds' in data:
-        return KomgaReadlist(data)
-    
-    elif 'root' in data:
-        return KomgaLibrary(data)
 
 
 def convert_item_list_to_objects(data) -> (
@@ -31,7 +17,7 @@ def convert_item_list_to_objects(data) -> (
         return data
 
     obj_list = []
-    match convert_response_to_komga_item(data[0]):
+    match convert_response_to_komga_object(data[0]):
         case KomgaSeries():
             for i in data:
                 obj_list.append(KomgaSeries(i))

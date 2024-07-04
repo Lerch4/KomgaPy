@@ -2,7 +2,6 @@ import os, json, io, zipfile
 
 from PIL import Image
 from PIL.PngImagePlugin import PngImageFile
-from requests import Response
 
 from komgapy.exception_classes import NoSearchResults
 from komgapy.util import (
@@ -13,14 +12,15 @@ from komgapy.util import (
     set_search_params,
 )
 from komgapy.wrapper import RequestAdapter
-from komgapy.convert_response_util import convert_item_list_to_objects
+from komgapy.util.convert_list_to_komga_objects import convert_item_list_to_objects
 from komgapy.response_classes import (
     KomgaSeries,
     KomgaBook,
     KomgaCollection,
     KomgaReadlist,
     KomgaErrorResponse,
-    KomgaSearchResponse
+    KomgaSearchResponse,
+    KomgaLibrary
     )
 
 
@@ -34,7 +34,15 @@ class Generic(RequestAdapter):
             item_type: str,
             item_id: str = None,
             item_name: str = None
-            ) -> KomgaSeries | KomgaBook | KomgaCollection | KomgaReadlist | KomgaErrorResponse | None:
+            ) -> (
+                KomgaSeries |
+                KomgaBook |
+                KomgaCollection |
+                KomgaReadlist |
+                KomgaErrorResponse |
+                KomgaLibrary | 
+                None
+                ):
         '''
         Returns Komga object for a single Komga item.
         Takes either id or name of item with id being prefered.

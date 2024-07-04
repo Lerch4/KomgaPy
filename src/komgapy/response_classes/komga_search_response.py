@@ -1,10 +1,10 @@
 from komgapy.response_classes.komga_response import KomgaResponse
-from komgapy.convert_response_util import convert_item_list_to_objects
+
 
 
 class KomgaSearchResponse(KomgaResponse):
     def __init__(self, komga_search_response: dict) -> None:
-
+        from komgapy.util.convert_list_to_komga_objects import convert_item_list_to_objects
         self.content = convert_item_list_to_objects(komga_search_response['content'])
         self.pageable: bool = komga_search_response['pageable']
         self.total_elements: int = komga_search_response['totalElements']

@@ -1,10 +1,4 @@
 
-import json
-
-from requests import Response
-
-from komgapy.response_classes import  KomgaSeries, KomgaBook, KomgaCollection, KomgaReadlist, KomgaLibrary, KomgaErrorResponse, KomgaSearchResponse
-from komgapy.convert_response_util import convert_response_to_komga_item
 
 def make_endpoint(item_type: str,  endpoint_params: list[str]|str = None, version: str = "v1") -> str:
     '''
@@ -74,46 +68,3 @@ def remove_duplicates(data: list) -> list:
             data_no_dups.append(item)
     
     return data_no_dups
-
- 
-def convert_response_to_object(response: Response) -> (
-        Response |
-        KomgaErrorResponse |
-        KomgaSearchResponse |
-        KomgaSeries |
-        KomgaBook |
-        KomgaCollection |
-        KomgaReadlist
-        ):
-    '''
-    Converts an api Response object to Komga object
-    '''
-
-    if response.text:
-
-        try: 
-            response_json = json.loads(response.text)
-            
-        except json.decoder.JSONDecodeError:
-            return response
-
-        if type(response_json) is list:
-            if response_json != [] and type(response_json[0]) is dict:
-                if 'root' in response_json[0]:
-                    library_list = []
-                    for library in response_json:
-                        library_list.append(KomgaLibrary(library))
-                    return library_list
-            return response_json
-
-        elif 'message' in response_json:
-            return KomgaErrorResponse(response_json)
-        
-        elif 'content' in response_json:
-            return KomgaSearchResponse(response_json)
-        
-        elif 'id' in response_json:
-            return convert_response_to_komga_item(response_json)
-        
- 
-    return response
