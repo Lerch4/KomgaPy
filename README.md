@@ -2,11 +2,12 @@
 
 KomgaPy is an incomplete Komga API wrapper for python. KomgaPy is still under development and has not been thoroughly tested. Currently KomgaPy has the ability to
 
-- get data from Komga series, books, collections, readlists
+- get data from Komga series, books, collections, readlists, libraries
 - post new collection and readlists
 - overwrite current collections and readlists
 - edit / update metadata for series and books
 - update poster art from file path
+- scan, analyze, and refresh libraries
 - utilize data objects for Komga series, books, collections, readlists, searches, and errors
 
 ## **Usage**
@@ -17,7 +18,7 @@ KomgaPy is an incomplete Komga API wrapper for python. KomgaPy is still under de
 from komgapy import KomgaSession
 session = KomgaSession(komga_url, (user, password))
 ```
-
+---
 ### List of Methods
 
  Series Methods
@@ -59,7 +60,7 @@ Library Methods
 
 Referential Methods
 - `list_referential()`
-
+---
 ### Method Examples
 
 - #### Get methods
@@ -82,14 +83,17 @@ series.print_data(indent = 2)
 - #### Search methods
 	- `search_series(), search_book(), search_collection(), search_readlist()`
 	- Returns `KomgaSearchResponse` that will contain a list of Komga objects as well as data on the search
-		- List of Komga objects will be in the `content` variable of the search response instance
+		- List of Komga objects will be in the `content` attribute of the search response instance
 	- Takes a dictionary of search parameters that are different for each type of Komga object
 		- Search is the most used parameter and most of the other parameters can be made redundant by using[ Full Text Search](https://komga.org/docs/guides/search/).  All parameters are taken from the Komga API and not all have been tested. 
 	    - Available parameters (from [Komga API](https://komga.org/docs/api/rest))
 		    - Series
 		        - search: `string`
+					<!-- - Komga Full Text Search -->
 		        - library_id : `list[string] | string`
+					<!-- - Komga ID(s) for libraries to search from. Left blank will search all libraries. -->
 		        - collection_id : `list[string] | string`
+					<!-- - Komga ID(s) for collections to search from. -->
 		        - status : `'ENDED' | 'ONGOING' | 'ABANDONED' | 'HIATUS'`
 		        - read_status : `'UNREAD' | 'READ' | 'IN_PROGRESS'`
 		        - publisher : `list[string] | string`
