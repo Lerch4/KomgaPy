@@ -1,19 +1,19 @@
 ### List of Methods
 
- Series Methods
+ [Series Methods](/src/komgapy/wrapper/series.py)
 - `get_series()`
 - `search_series()`
 - `update_series_metadata()`
 - `series_in_collection()`
 
-Book Methods
+[Book Methods](/src/komgapy/wrapper/book.py)
 - `get_book()`
 - `search_book()`
 - `update_book_metadata()`
 - `books_in_series()`
 - `books_in_readlist()`
 
-Collection Methods
+[Collection Methods](/src/komgapy/wrapper/collection.py)
 - `get_collection()`
 - `search_collection()`
 - `add_new_collection()`
@@ -21,14 +21,14 @@ Collection Methods
 - `update_collection_poster()`
 - `collections_in_series()`
 
-Readlist Methods
+[Readlist Methods](/src/komgapy/wrapper/readlist.py)
 - `get_readlist()`
 - `search_readlist()`
 - `add_new_readlist()`
 - `overwrite_existing_readlist()`
 - `update_readlist_poster()`
 
-Library Methods
+[Library Methods](/src/komgapy/wrapper/library.py)
 - `list_all_libraries()`
 - `get_library()`
 - `update_library()`
@@ -37,7 +37,7 @@ Library Methods
 - `refresh_library_metadata()`
 - `scan_library()`
 
-Referential Methods
+[Referential Methods](/src/komgapy/wrapper/referential.py)
 - `list_referential()`
 ---
 ### Method Examples
