@@ -34,27 +34,4 @@ class KomgaSession(Series, Books, Collection, Readlist, Library, Referential):
     #     '''
     #     return self._item_in_container('thumbnails', 'collections', id)
 
-
-
-    # def _get_item_poster(self, item_type: str, item_id: str, convert_to_png: bool = True) -> PngImageFile | Response:
-    #     endpoint = make_endpoint(item_type, [item_id, 'thumbnail'])
-    #     r = self._get_request(endpoint, {'id': item_id})
-    #     if convert_to_png and not isinstance(r, KomgaErrorResponse):  
-    #         return Image.open(io.BytesIO(r._content))
-    #     else: 
-    #          return r
-
-    # def _get_file(self, item_type, item_id, convert_to_cbz: bool = False):
-    #     endpoint = make_endpoint(item_type, [item_id, 'file'])
-    #     r = self._get_request(endpoint, {make_param_key(item_type): item_id})
-    #     if convert_to_cbz:
-    #         return 
-    #     else:
-    #         return r
-        
-    # def _save_file(self, item_type, item_id, path):
-    #     endpoint = make_endpoint(item_type, [item_id, 'file'])
-    #     r = self._get_request(endpoint, {make_param_key(item_type): item_id})
-
-    #     with open(path, 'wb') as file:
-    #         file.write(r._content)
+    
