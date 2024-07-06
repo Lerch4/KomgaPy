@@ -11,7 +11,7 @@ KomgaPy is an incomplete Komga API wrapper for python. KomgaPy is still under de
 - utilize data objects for Komga series, books, collections, readlists, searches, and errors
 
 
-## **Instalation**
+## **Installation**
 - Currently KomgaPy has to be downloaded and installed manually
 	- Eventually will be added to PyPI 
 	- Download and extract repo to directory and install directory to pip
