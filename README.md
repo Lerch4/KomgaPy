@@ -17,7 +17,7 @@ KomgaPy is an incomplete Komga API wrapper for python. KomgaPy is still under de
 	- Download and extract repo to directory and install directory to pip
 
 ```
-pip install <location of KomgaPy directory>
+pip install <KomgaPy file path>
 ```
 
 ## **Usage**
@@ -29,4 +29,4 @@ from komgapy import KomgaSession
 session = KomgaSession(komga_url, (user, password))
 ```
 
-See docs for further usage examples.
+See [docs](./docs/) for further usage examples.
