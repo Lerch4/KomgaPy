@@ -1,6 +1,6 @@
 # KomgaPy
 
-KomgaPy is an incomplete Komga API wrapper for python. KomgaPy is still under development and has not been thoroughly tested.
+KomgaPy is an incomplete [Komga](https://komga.org/) API wrapper for python. KomgaPy is still under development and has not been thoroughly tested.
 
 ### Currently KomgaPy has the ability to
 
