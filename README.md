@@ -18,12 +18,11 @@ KomgaPy is an incomplete Komga API wrapper for python. KomgaPy is still under de
 - [ ] Ability to add readlists from .cbl file
 
 ## **Installation**
-- Currently KomgaPy has to be downloaded and installed manually
+- Currently KomgaPy has to be installed from github
 	- Eventually will be added to PyPI 
-	- Download and extract repo to directory and install directory to pip
 
 ```
-pip install <KomgaPy file path>
+pip install git+https://github.com/Lerch4/KomgaPy
 ```
 
 ## **Usage**
