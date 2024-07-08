@@ -15,7 +15,7 @@ KomgaPy is an incomplete [Komga](https://komga.org/) API wrapper for python. Kom
 - get files for series, books, and readlists
 
 ### Still to be implemented
-- [ ] Ability to add readlists from .cbl file
+- [ ] Ability to match books from .cbl file
 
 ## **Installation**
 - Currently KomgaPy has to be installed from github
