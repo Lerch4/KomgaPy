@@ -1,5 +1,6 @@
+import json
 from io import TextIOWrapper
-from komgapy.response_classes import KomgaReadlist, KomgaErrorResponse
+from komgapy.response_classes import KomgaReadlist, KomgaErrorResponse, cbl_match_response
 from komgapy.wrapper import Generic
 
 
@@ -101,12 +102,16 @@ class Readlist(Generic):
         self._save_file('readlists', readlist_id, path)
 
 
-    def match_readlist_cbl(self, file: TextIOWrapper):
+    def match_readlist_cbl(self, file: TextIOWrapper, format: str = 'content'):
         '''
         :param file: file object as TextIOWrapper
+        :param format: format data to be returned in. content returns match response object. raw returns raw response. 
         '''
         endpoint = '/api/v1/readlists/match/comicrack'
         file = {'file': file}
         r = self._post_request(endpoint, files=file, headers={'accept': 'application/json'})
-        return r
+
+        if format == 'content':
+            return cbl_match_response(json.loads(vars(r)['_content']))
+        else: return r
     
