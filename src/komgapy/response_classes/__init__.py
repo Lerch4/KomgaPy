@@ -7,3 +7,4 @@ from .komga_readlist import KomgaReadlist
 from .komga_library import KomgaLibrary
 from .komga_search_response import KomgaSearchResponse
 from .komga_error_response import KomgaErrorResponse
+from .cbl_match_response import cbl_match_response

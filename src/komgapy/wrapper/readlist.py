@@ -1,3 +1,4 @@
+from io import TextIOWrapper
 from komgapy.response_classes import KomgaReadlist, KomgaErrorResponse
 from komgapy.wrapper import Generic
 
@@ -98,3 +99,14 @@ class Readlist(Generic):
         :param path: path to save location including name and extention
         '''
         self._save_file('readlists', readlist_id, path)
+
+
+    def match_readlist_cbl(self, file: TextIOWrapper):
+        '''
+        :param file: file object as TextIOWrapper
+        '''
+        endpoint = '/api/v1/readlists/match/comicrack'
+        file = {'file': file}
+        r = self._post_request(endpoint, files=file, headers={'accept': 'application/json'})
+        return r
+    
