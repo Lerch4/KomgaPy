@@ -38,6 +38,7 @@
 - `get_readlist_files()`
 - `save_readlist_files()`
 - `match_readlist_cbl()`
+- `match_readlist_cbl_from_path()`
 
 [Library Methods](/src/komgapy/wrapper/library.py)
 - `list_all_libraries()`
