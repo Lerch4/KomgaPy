@@ -33,6 +33,9 @@ pip install git+https://github.com/Lerch4/KomgaPy
 ```
 from komgapy import KomgaSession
 session = KomgaSession(komga_url, (user, password))
+
+series = session.get_series(series_name='Batman (2011)')
+series.print_data(indent = 2)
 ```
 
 See [docs](./docs/) for further usage examples.
