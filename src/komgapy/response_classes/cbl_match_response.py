@@ -33,7 +33,11 @@ def validate_match_data(requests):
         for i, m in enumerate(request['matches']):
             match_release_year = m['series']['releaseDate'].split('-')[0]
             if  match_release_year == request_release_year:
+
                 matched_request = request['matches'][i]
+
+                matched_request = matched_request = request['matches'][i]
+
                 matched = True
                 continue
 
