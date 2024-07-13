@@ -6,12 +6,17 @@ class cbl_match_response(KomgaResponse):
         self.read_list_match = match_response_data['readListMatch']
         self.requests = match_response_data['requests']
         self.error_code = match_response_data['errorCode']
-        (self.book_ids, self.unmatched) =  get_book_ids(self.requests)
+        (self.book_ids, self.unmatched, self.multi_match) =  validate_match_data(self.requests)
     
 
-def get_book_ids(requests):
+def validate_match_data(requests):
+    '''
+    Parse match data
+    '''
     book_ids = []
     no_match = []
+    multi_match = []
+    matched: bool = False
     for request in requests:
 
         match len(request['matches']):
@@ -20,9 +25,21 @@ def get_book_ids(requests):
                 continue
             case 1: pass
             case _:
-                print('multiple matches -- selecting first option')                
+                multi_match.append(request)
 
-        matched_request = request['matches'][0]
+        request_string_part = request['request']['series'][0].split(')')
+        request_release_year = request_string_part[0].split('(')[1]
+
+        for i, m in enumerate(request['matches']):
+            match_release_year = m['series']['releaseDate'].split('-')[0]
+            if  match_release_year == request_release_year:
+                matched_request = matched_request = request['matches'][i]
+                matched = True
+                continue
+
+        if not matched:
+            no_match.append(request)
+            continue
 
         match len(matched_request['books']):
             case 0:
@@ -31,8 +48,8 @@ def get_book_ids(requests):
                 
             case 1: pass
             case _:
-                print('multiple books -- selecting first option')  
- 
+               multi_match.append(request)
+
         book_ids.append(matched_request['books'][0]['bookId'])
 
-    return (book_ids, no_match)
+    return (book_ids, no_match, multi_match)

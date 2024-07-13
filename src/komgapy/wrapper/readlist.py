@@ -123,7 +123,6 @@ class Readlist(Generic):
         endpoint = '/api/v1/readlists/match/comicrack'
         with open(file_path, 'r') as f:
             file = {'file': f}
-            print(file)
             r = self._post_request(endpoint, files=file, headers={'accept': 'application/json'})
 
         if format == 'content':
