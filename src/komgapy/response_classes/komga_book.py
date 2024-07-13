@@ -1,4 +1,5 @@
 from komgapy.response_classes import KomgaItem
+from komgapy.response_classes.komga_book_metadata import KomgaBookMetadata
 
 class KomgaBook(KomgaItem):
     def __init__(self, book_data: dict) -> None:
@@ -13,4 +14,4 @@ class KomgaBook(KomgaItem):
         self.size_bytes = book_data['sizeBytes']
         self.size = book_data['size']
         self.media = book_data['media']
-        self.metadata = book_data['metadata']
+        self.metadata = KomgaBookMetadata(book_data['metadata'])
