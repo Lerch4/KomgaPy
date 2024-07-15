@@ -72,3 +72,8 @@ class Collection(Generic):
         '''
         return self._get_item_poster('collections', collection_id, convert_to_png)
     
+    def _delete_collections_from_library(self, collection_id):
+        '''
+        Deletes item (this cannot be undone)
+        '''
+        return self._delete_item_from_library('collections', collection_id)

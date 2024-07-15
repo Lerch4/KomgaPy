@@ -32,8 +32,8 @@ class Generic(RequestAdapter):
     def _get_item(
             self,
             item_type: str,
-            item_id: str = None,
-            item_name: str = None
+            item_id: str| None = None,
+            item_name: str| None = None
             ) -> (
                 KomgaSeries |
                 KomgaBook |
@@ -71,7 +71,7 @@ class Generic(RequestAdapter):
             search_params[param_key] = item_id 
             name_used = False
 
-        elif endpoint != None:
+        elif item_name != None:
             search_params['search'] = f'"{item_name}"'
             name_used = True
 
@@ -318,3 +318,26 @@ class Generic(RequestAdapter):
 
         with open(path, 'wb') as file:
             file.write(r._content)
+
+    def _delete_item_from_library(self, item_type, item_id):
+        '''
+        Deletes item (this cannot be undone)
+        '''
+        endpoint = make_endpoint(item_type, item_id)
+        return self._delete_request(endpoint)
+
+    def _delete_item_file():
+        '''
+        Deletes item file (this cannot be undone)
+        '''
+        pass
+
+    def _get_thumbnails(self, item_type, item_id):
+        endpoint = make_endpoint(item_type, [item_id, 'thumbnails'])
+        return self._get_request(endpoint, {make_param_key(item_type): item_id})
+
+
+
+
+
+    

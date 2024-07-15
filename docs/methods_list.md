@@ -18,6 +18,14 @@
 - `get_book_poster()`
 - `get_book_files()`
 - `save_book_file()`
+- `book_duplicates()`
+- `book_ondeck()`
+- `book_pages()`
+- `book_page()`
+- `book_raw_page()`
+- `book_positions()`
+- `next_book()`
+- `previous_book()`
 
 [Collection Methods](/src/komgapy/wrapper/collection.py)
 - `get_collection()`
@@ -38,6 +46,9 @@
 - `get_readlist_files()`
 - `save_readlist_files()`
 - `match_readlist_cbl()`
+- `delete_readlist_from_library()`
+- `next_book_in_readlist()`
+- `previous_book_in_readlist()`
 
 
 [Library Methods](/src/komgapy/wrapper/library.py)

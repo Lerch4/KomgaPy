@@ -1,5 +1,7 @@
 import json, requests, io
 from io import TextIOWrapper
+
+from komgapy.util import make_endpoint
 from komgapy.response_classes import KomgaReadlist, KomgaErrorResponse, cbl_match_response
 from komgapy.wrapper import Generic
 
@@ -128,3 +130,20 @@ class Readlist(Generic):
             return cbl_match_response(json.loads(r.text))
 
         else: return r
+
+    def delete_readlist_from_library(self, readlist_id):
+        '''
+        Deletes Readlist (this cannot be undone)
+        '''
+        return self._delete_item_from_library('readlists', readlist_id)
+    
+
+    def next_book_in_readlist(self, readlist_id, book_id):
+
+        endpoint = make_endpoint('readlists', [readlist_id, 'books', book_id, 'next'])
+        return self._get_request(endpoint, {'id': readlist_id, 'bookId': book_id})
+
+
+    def previous_book_in_readlist(self, readlist_id, book_id):
+        endpoint = make_endpoint('readlists', [readlist_id, 'books', book_id, 'previous'])
+        return self._get_request(endpoint, {'id': readlist_id, 'bookId': book_id})

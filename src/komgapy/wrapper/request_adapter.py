@@ -87,4 +87,17 @@ class RequestAdapter:
         PATCH Komga api request
         '''
         return self._generic_request(http_method='PATCH', endpoint = endpoint, data=data, headers = headers)
+    
+    def _delete_request(
+            self,
+            endpoint: str,
+            headers: dict = None
+            ) :
+        '''
+        DELETE
+        Doesn't need to be filtered through _generic_request sinse only returns response
+        '''
+        full_url = self.host_url + endpoint
+        return request(method='DELETE', url = full_url, headers= headers, auth=self.auth)
+
 
