@@ -100,49 +100,31 @@ class Readlist(Generic):
         :param path: path to save location including name and extention
         '''
         self._save_file('readlists', readlist_id, path)
+        
 
-
-    def match_readlist_cbl(self, file: TextIOWrapper, format: str = 'content'):
+    def match_readlist_cbl(self, cbl: str, input: str ='path', output: str = 'content' ):
         '''
-        :param file: file object as TextIOWrapper
-        :param format: format data to be returned in. content returns match response object. raw returns raw response. 
-        '''
-        endpoint = '/api/v1/readlists/match/comicrack'
-        file = {'file': file}
-        r = self._post_request(endpoint, files=file, headers={'accept': 'application/json'})
-
-        if format == 'content':
-            return cbl_match_response(json.loads(r.text))
-        else: return r
-    
-    def match_readlist_cbl_from_path(self, file_path: str, format: str = 'content'):
-        '''
-        :param file_path: file path of cbl file
-        :param format: format data to be returned in. content returns match response object. raw returns raw response. 
+        :param cbl: cbl file from path, url, or raw
+        :param input: 'path' (default), 'url', or 'raw'
+        :param output: format data to be returned in. content returns match response object. raw returns raw response. 
         '''
         endpoint = '/api/v1/readlists/match/comicrack'
-        with open(file_path, 'r') as f:
-            file = {'file': f}
-            r = self._post_request(endpoint, files=file, headers={'accept': 'application/json'})
-
-        if format == 'content':
-            return cbl_match_response(json.loads(r.text))
-        else: return r
-
-    def match_readlist_cbl_from_url(self, url: str, format: str = 'content'):
-        '''
-        :param url: raw url path of cbl file
-        :param format: format data to be returned in. content returns match response object. raw returns raw response. 
-        '''
-        endpoint = '/api/v1/readlists/match/comicrack'
-
-        r = requests.get(url)
-        f = io.TextIOWrapper(io.BytesIO(r._content))
-        file = {'file': f}
+        match input:
+            case 'path':
+                with open(cbl, 'r') as f:
+                    file = {'file': f.read()}
+            case 'url':
+                r = requests.get(cbl)
+                f = io.TextIOWrapper(io.BytesIO(r._content))
+                file = {'file': f}
+            case 'raw':
+                file = {'file': cbl}
+            case _:
+                raise Exception('Ivalid input: Must be in [path, url, raw]')
 
         r = self._post_request(endpoint, files=file, headers={'accept': 'application/json'})
 
-        if format == 'content':
+        if output == 'content':
             return cbl_match_response(json.loads(r.text))
 
         else: return r

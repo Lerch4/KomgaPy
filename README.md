@@ -4,19 +4,22 @@ KomgaPy is an incomplete [Komga](https://komga.org/) API wrapper for python. Kom
 
 ### Currently KomgaPy has the ability to
 
-- get data from series, books, collections, readlists, and libraries
-- search for series, books, collections, and readlists
-- post new collection and readlists
-- overwrite current collections and readlists
-- edit / update metadata for series and books
-- update poster art from file path
-- scan, analyze, and refresh libraries
-- get thumbnail images for series, books, collections, and readlists
-- get files for series, books, and readlists
+- Get data from series, books, collections, readlists, and libraries
+- Search for series, books, collections, and readlists
+- Post new collection and readlists
+- Overwrite current collections and readlists
+- Edit / update metadata for series and books
+- Update poster art from file path
+- Scan, analyze, and refresh libraries
+- Get thumbnail images for series, books, collections, and readlists
+- Get files for series, books, and readlists
+- Ability to match books from .cbl
+	- can match cbl from path or url
 
 ### Still to be implemented
-- [x] Ability to match books from .cbl file
-	- [ ] Make it easier to use matched book data
+
+- [ ] Make it easier to use matched book data
+- [ ] Add more endpoints
 
 ## **Installation**
 - Currently KomgaPy has to be installed from github

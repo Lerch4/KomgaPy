@@ -142,6 +142,11 @@ series_list = session.series_search({'search':'reading_direction:right_to_left'}
 ```
 
 ```
-cbl_match_response = session.match_readlist_cbl_from_path(file_path)
+cbl_match_response = session.match_readlist_cbl(file_path)
+cbl_match_response.print_data()
+```
+
+```
+cbl_match_response = session.match_readlist_cbl(url, input='url')
 cbl_match_response.print_data()
 ```
