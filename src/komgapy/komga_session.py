@@ -1,8 +1,7 @@
-from komgapy.wrapper import Series, Books, Collection, Readlist, Library, Referential
-from komgapy.util import make_endpoint, make_param_key
+from komgapy.wrapper.controllers import*
 
 
-class KomgaSession(Series, Books, Collection, Readlist, Library, Referential):
+class KomgaSession():
     '''
     Wrapper session class for Komga API requests.
 
@@ -11,17 +10,11 @@ class KomgaSession(Series, Books, Collection, Readlist, Library, Referential):
     '''
     def __init__(self, komga_url: str, auth: tuple[str,str]) -> None: 
 
-        self.host_url = komga_url
-        self.auth = auth
+        self.readlists = Readlists(komga_url, auth)
+        self.series = Series(komga_url, auth)
+        self.books = Books(komga_url, auth)
+        self.collections = Collections(komga_url, auth)
+        self.libraries = Libraries(komga_url, auth) 
+        self.referential = Referential (komga_url, auth)
 
-
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    # work in progress
-    
-    # def get_posters_in_collection(self, id) : # list[KomgaThumbnail]
-    #     '''
-    #     Untested
-    #     '''
-    #     return self._item_in_container('thumbnails', 'collections', id)
-
-    
+#------------------------------------

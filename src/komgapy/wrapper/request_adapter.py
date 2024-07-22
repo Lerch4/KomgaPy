@@ -1,4 +1,3 @@
-import json
 from requests import Response, request
 from komgapy.util.covert_response_to_object import convert_response_to_object
 from komgapy.response_classes import (
@@ -95,7 +94,7 @@ class RequestAdapter:
             ) :
         '''
         DELETE
-        Doesn't need to be filtered through _generic_request sinse only returns response
+        Doesn't need to be filtered through _generic_request because only returns response
         '''
         full_url = self.host_url + endpoint
         return request(method='DELETE', url = full_url, headers= headers, auth=self.auth)

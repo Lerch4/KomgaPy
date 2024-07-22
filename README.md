@@ -17,11 +17,12 @@ KomgaPy is an incomplete [Komga](https://komga.org/) API wrapper for python. Kom
 	- can match cbl from path or url
 - Delete readlists and collections from library
 
-### Still to be implemented
+### To Do
+- [X] Refactor methods with better class structure and naming
+	- all methods have changed
+- [ ] Add more endpoints	
+- [ ] First Alpha Release
 
-- [ ] Make it easier to use matched book data
-- [ ] Add more endpoints
-- [ ] Refactor methods with better class structure and naming
 
 ## **Installation**
 - Currently KomgaPy has to be installed from github
@@ -39,7 +40,7 @@ pip install git+https://github.com/Lerch4/KomgaPy
 from komgapy import KomgaSession
 session = KomgaSession(komga_url, (user, password))
 
-series = session.get_series(series_name='Batman (2011)')
+series = session.series.get(series_name='Batman (2011)')
 series.print_data(indent = 2)
 ```
 

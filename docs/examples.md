@@ -1,24 +1,24 @@
 ### Method Examples
 
-- #### Get methods
-    - `get_series(), get_book(), get_collection(), get_readlist(), get_library()`
+- #### Get method
+    - `series.get(), books.get(), collections.get(), readlists.get(), libraries.get()`
     - Returns single Komga object
     - Takes either id or name with id being preferred. Name returns first search result that matches name exactly
 
 ```
-series = session.get_series('0ABC123XY45Z1')
+series = session.series.get('0ABC123XY45Z1')
 series.print_data()
 ```
 
 ```
-series = session.get_series(series_name='Batman (2011)')
+series = session.series.get(series_name='Batman (2011)')
 series.print_data(indent = 2)
 ```
 
 
 ---
-- #### Search methods
-	- `search_series(), search_book(), search_collection(), search_readlist()`
+- #### Search method
+	- `series.search(), books.search(), collections.search(), readlists.search()`
 	- Returns `KomgaSearchResponse` that will contain a list of Komga objects as well as data on the search
 		- List of Komga objects will be in the `content` attribute of the search response instance
 	- Takes a dictionary of search parameters that are different for each type of Komga object
@@ -73,12 +73,12 @@ series.print_data(indent = 2)
 
 
 ```
-search_response = session.search_series({'search': '"Walking Dead"', 'unpaged': True})
+search_response = session.series.search({'search': '"Walking Dead"', 'unpaged': True})
 search_response.print_data()
 ```
 
 ```
-search_response = session.search_series({'search': '"Walking Dead"', 'unpaged': True})
+search_response = session.series.search({'search': '"Walking Dead"', 'unpaged': True})
 series_list = search_response.content
 for series in series_list:
 	print(f'Name: {series.name}\nID  : {series.id}\n')
@@ -87,17 +87,17 @@ for series in series_list:
 - ##### Full Text Search vs Search Parameters
 	- Both examples below return the same result
 ```
-search_response = session.search_series({'search': 'publisher: Image', 'unpaged': True})
+search_response = session.series.search({'search': 'publisher: Image', 'unpaged': True})
 print(search_response.number_of_elements)
 ```
 
 ```
-search_response = session.search_series({'publisher': 'Image', 'unpaged': True})
+search_response = session.series.search({'publisher': 'Image', 'unpaged': True})
 print(search_response.number_of_elements)
 ```
 ---
 - #### Adding new Collections and Readlists
-	- `add_new_collection(), add_new_readlist()`
+	- `collections.new(), readlists.new()`
 	- Takes data as a dictionary 
 ```
 new_collection_data = {
@@ -106,7 +106,7 @@ new_collection_data = {
 	'seriesIds': [0ABC123XY45Z1, 0ABC123XY45Z2, 0ABC123XY45Z3]
 	}
 
-session.add_new_collection(new_collection_data)
+session.collections.new(new_collection_data)
 ```
 
 ```
@@ -117,36 +117,36 @@ new_readlist_data = {
 	'bookIds': [0ABC123XY45Z1, 0ABC123XY45Z2, 0ABC123XY45Z3]
 	}
 
-session.add_new_readlist(new_readlist_data)
+session.readlists.new(new_readlist_data)
 ```
 ---
 - #### Additional Method Examples
 ```
-collection = session.get_collection(collection_name='{2}: Nightwing')
-series_list = session.series_in_collection(collection.id)
+collection = session.series.get('0ABC123XY45Z1')
+series_list = session.series.books(series.id)
 for series in series_list:
 	series.print_data()
 
 ```
 
 ```
-session.update_series_metadata(series.id, {'status': 'ENDED'})
+session.series.update_metadata(series.id, {'status': 'ENDED'})
 ```
 
 ```
-session.update_collection_poster(collection.id, file_path)
+session.collections.update_poster(collection.id, file_path)
 ```
 
 ```
-series_list = session.series_search({'search':'reading_direction:right_to_left'}).content
+series_list = session.series.search({'search':'reading_direction:right_to_left'}).content
 ```
 
 ```
-cbl_match_response = session.match_readlist_cbl(file_path)
+cbl_match_response = session.readlists.match_cbl(file_path)
 cbl_match_response.print_data()
 ```
 
 ```
-cbl_match_response = session.match_readlist_cbl(url, input='url')
+cbl_match_response = session.readlists.match_cbl(url, input='url')
 cbl_match_response.print_data()
 ```
